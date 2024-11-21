@@ -29,7 +29,7 @@ const projects: Project[] = [
   {
     title: 'Portfolio Website',
     description: 'Website portfolio personal dengan animasi modern dan responsive design',
-    image: '/src/lib/profil1.png',
+    image: '/profile1.png',
     tags: ['React', 'Tailwind CSS', 'Vite'],
     links: { demo: '#', github: 'https://github.com/Ramadeva1101' },
     stats: { stars: 10, forks: 3 },
@@ -38,7 +38,7 @@ const projects: Project[] = [
   {
     title: 'Sistem Praktek Klinik',
     description: 'Platform Aplikasi untuk pengelolaan data pasien, Obat, Pemeriksaan dan dokter',
-    image: '/src/lib/project3.png',
+    image: '/project1.png',
     tags: ['Laravel', 'MySQL', 'Filament'],
     links: { demo: '#', github: 'https://github.com/Ramadeva1101' },
     stats: { stars: 20, forks: 8 },
@@ -47,7 +47,7 @@ const projects: Project[] = [
   {
     title: 'Sistem Informasi Akademik',
     description: 'Sistem informasi untuk mengelola data akademik mahasiswa dan dosen',
-    image: '/src/lib/project2.png',
+    image: '/project2.png',
     tags: ['Laravel', 'MySQL', 'Bootstrap'],
     links: { demo: '#', github: 'https://github.com/Ramadeva1101' },
     stats: { stars: 15, forks: 5 },
@@ -56,7 +56,7 @@ const projects: Project[] = [
   {
     title: 'Web Application System',
     description: 'Sistem manajemen data berbasis web dengan fitur lengkap',
-    image: '/src/lib/project2.png',
+    image: '/project1.png',
     tags: ['Laravel', 'MySQL', 'Bootstrap'],
     links: { demo: '#', github: 'https://github.com/Ramadeva1101' },
     stats: { stars: 25, forks: 10 },
@@ -65,7 +65,7 @@ const projects: Project[] = [
   {
     title: 'CRM Dashboard',
     description: 'Dashboard untuk manajemen pelanggan dan analisis data',
-    image: '/src/lib/project3.png',
+    image: '/project2.png',
     tags: ['React', 'Node.js', 'MongoDB'],
     links: { demo: '#', github: 'https://github.com/Ramadeva1101' },
     stats: { stars: 18, forks: 7 },
@@ -74,7 +74,7 @@ const projects: Project[] = [
   {
     title: 'Modern UI Design',
     description: 'Design sistem modern untuk aplikasi web',
-    image: '/src/lib/image1.png',
+    image: '/ui.png',
     tags: ['Figma', 'UI/UX', 'Prototype'],
     links: { demo: '#', github: 'https://github.com/Ramadeva1101' },
     stats: { stars: 12, forks: 4 },
@@ -83,7 +83,7 @@ const projects: Project[] = [
   {
     title: 'Mobile App Interface',
     description: 'Interface design untuk aplikasi mobile dengan fokus pada user experience',
-    image: '/src/lib/image2.png',
+    image: '/ux.png',
     tags: ['Adobe XD', 'UI/UX', 'Mobile'],
     links: { demo: '#', github: 'https://github.com/Ramadeva1101' },
     stats: { stars: 8, forks: 2 },

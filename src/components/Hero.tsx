@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { Github, Mail, Download, ExternalLink, Award, Users, Briefcase, Rocket, Star, Instagram, Phone, FileText } from 'lucide-react';
-import cvFile from '../lib/cvbaru.pdf';
 
 const Hero = () => {
   return (
@@ -12,7 +11,7 @@ const Hero = () => {
           <div className="group bg-white/90 backdrop-blur-sm rounded-2xl p-8 shadow-xl border border-gray-100 hover:shadow-2xl transition-all duration-300 hover:-translate-y-1 mb-6">
             <div className="aspect-square rounded-2xl bg-gradient-to-r from-violet-200 via-pink-200 to-cyan-200 overflow-hidden mb-6 transition-transform duration-300 shadow-lg">
             <img 
-                src="/src/lib/profile.png" 
+                src="/public/profile.png" 
                 alt="Profile" 
                 className="w-full h-full object-cover"
               />
@@ -34,7 +33,7 @@ const Hero = () => {
 
               <div className="grid grid-cols-2 gap-3">
                 <a 
-                  href={cvFile}
+                  href="/cvbaru.pdf"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex items-center justify-center gap-2 px-4 py-2.5 bg-gradient-to-r from-violet-600 to-cyan-600 text-white rounded-xl font-medium text-sm hover:shadow-lg transition-all duration-300 hover:-translate-y-0.5 group relative overflow-hidden"
