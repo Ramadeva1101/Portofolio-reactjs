@@ -11,24 +11,11 @@ const Contact = () => {
     e.preventDefault();
     setLoading(true);
 
-    // Get form data
-    const form = e.target as HTMLFormElement;
-    const name = form.from_name.value;
-    const email = form.email.value;
-    const message = form.message.value;
-
-    const templateParams = {
-      from_name: name,
-      email: email,
-      message: message,
-      to_name: 'Ramadeva', // Nama penerima tetap
-    };
-    
     try {
-      const result = await emailjs.send(
-        'service_5165il4',
-        'template_05pwt0t',
-        templateParams,
+      const result = await emailjs.sendForm(
+        'service_os0d6pl',
+        'template_7e92ekr',
+        formRef.current!,
         'uD8RdjG5qES5L3idS'
       );
 
@@ -61,26 +48,26 @@ const Contact = () => {
         <div className="max-w-xl mx-auto">
           <form ref={formRef} onSubmit={handleSubmit} className="space-y-4">
             <div>
-              <label htmlFor="from_name" className="block text-sm font-medium text-gray-700 mb-1">
+              <label htmlFor="fullName" className="block text-sm font-medium text-gray-700 mb-1">
                 Name
               </label>
               <input
                 type="text"
-                name="from_name"
-                id="from_name"
+                name="fullName"
+                id="fullName"
                 required
                 className="w-full px-4 py-2 rounded-lg border border-gray-200 focus:ring-2 focus:ring-violet-500 focus:border-transparent transition-all duration-300"
               />
             </div>
 
             <div>
-              <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
+              <label htmlFor="email_id" className="block text-sm font-medium text-gray-700 mb-1">
                 Email
               </label>
               <input
                 type="email"
-                name="email"
-                id="email"
+                name="email_id"
+                id="email_id"
                 required
                 className="w-full px-4 py-2 rounded-lg border border-gray-200 focus:ring-2 focus:ring-violet-500 focus:border-transparent transition-all duration-300"
               />
