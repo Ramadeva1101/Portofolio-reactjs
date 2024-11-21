@@ -11,7 +11,7 @@ const Hero = () => {
           <div className="group bg-white/90 backdrop-blur-sm rounded-2xl p-8 shadow-xl border border-gray-100 hover:shadow-2xl transition-all duration-300 hover:-translate-y-1 mb-6">
             <div className="aspect-square rounded-2xl bg-gradient-to-r from-violet-200 via-pink-200 to-cyan-200 overflow-hidden mb-6 transition-transform duration-300 shadow-lg">
             <img 
-                src="/public/profile.png" 
+                src="/profile.png" 
                 alt="Profile" 
                 className="w-full h-full object-cover"
               />
