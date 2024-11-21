@@ -1,0 +1,99 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  @apply bg-gray-50 text-gray-800 transition-colors duration-300;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+}
+
+/* Dark mode styles */
+.dark body {
+  @apply bg-gray-900 text-gray-100;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-gray-100 dark:bg-gray-800;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-indigo-600 dark:bg-indigo-500 rounded-full;
+}
+
+.swiper-pagination-bullet {
+  @apply bg-indigo-600 dark:bg-indigo-500;
+}
+
+.swiper-button-prev,
+.swiper-button-next {
+  @apply hidden;
+}
+
+.swiper-pagination {
+  @apply bottom-0 !important;
+}
+
+/* Optional: Add smooth transition for all color changes */
+* {
+  @apply transition-colors duration-300;
+}
+
+section[id] {
+  scroll-margin-top: 80px;
+}
+
+.animate-scroll:hover {
+  animation-play-state: paused;
+}
+
+.animate-infiniteScroll:hover {
+  animation-play-state: paused;
+}
+
+/* Smooth transition untuk cards */
+.animate-infiniteScroll > div {
+  transition: all 0.3s ease;
+}
+
+/* Gradient overlay untuk smooth scroll */
+.experience-card::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 50px;
+  background: linear-gradient(to bottom, transparent, white);
+  pointer-events: none;
+}
+
+.experience-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 50px;
+  background: linear-gradient(to top, transparent, white);
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Aplikasikan font untuk heading */
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Inter', sans-serif;
+}
+
+.animate-scrollX:hover {
+  animation-play-state: paused;
+}
