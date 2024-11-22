@@ -8,11 +8,25 @@ if (!process.env.RESEND_API_KEY) {
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
-export async function POST(request: Request) {
-  try {
-    const { fullName, email_id, message } = await request.json();
+// Tambahkan config untuk mengizinkan method POST
+export const config = {
+  api: {
+    bodyParser: true,
+  },
+};
 
-    // Validasi input
+// Definisikan method yang diizinkan
+export async function POST(req: Request) {
+  if (req.method !== 'POST') {
+    return NextResponse.json(
+      { error: 'Method not allowed' },
+      { status: 405 }
+    );
+  }
+
+  try {
+    const { fullName, email_id, message } = await req.json();
+
     if (!fullName || !email_id || !message) {
       return NextResponse.json(
         { error: 'All fields are required' },
@@ -35,13 +49,29 @@ export async function POST(request: Request) {
       `
     });
 
-    return NextResponse.json({ success: true, data });
+    return NextResponse.json(
+      { success: true, data },
+      { 
+        status: 200,
+        headers: {
+          'Content-Type': 'application/json',
+        }
+      }
+    );
 
   } catch (error) {
     console.error('Email error:', error);
     return NextResponse.json(
-      { error: error instanceof Error ? error.message : 'Failed to send email' },
-      { status: 500 }
+      { 
+        success: false,
+        error: error instanceof Error ? error.message : 'Failed to send email' 
+      },
+      { 
+        status: 500,
+        headers: {
+          'Content-Type': 'application/json',
+        }
+      }
     );
   }
 } 

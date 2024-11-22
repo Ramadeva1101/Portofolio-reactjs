@@ -21,6 +21,10 @@ const Contact = () => {
         message: formData.get('message')?.toString().trim() || '',
       };
 
+      if (!data.fullName || !data.email_id || !data.message) {
+        throw new Error('Semua field harus diisi');
+      }
+
       const response = await fetch('/api/send-email', {
         method: 'POST',
         headers: {
@@ -29,11 +33,15 @@ const Contact = () => {
         body: JSON.stringify(data),
       });
 
-      const result = await response.json();
-
       if (!response.ok) {
-        throw new Error(result.error || 'Failed to send message');
+        const errorData = await response.json().catch(() => null);
+        throw new Error(
+          errorData?.error || `HTTP error! status: ${response.status}`
+        );
       }
+
+      const result = await response.json();
+      console.log('Email sent:', result);
 
       setStatus('success');
       if (formRef.current) {
