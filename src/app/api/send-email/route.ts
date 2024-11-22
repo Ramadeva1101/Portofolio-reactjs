@@ -1,67 +1,75 @@
 import { NextResponse } from 'next/server';
 import { Resend } from 'resend';
 
-const resend = new Resend(process.env.RESEND_API_KEY);
+// Validasi API key
+if (!process.env.RESEND_API_KEY) {
+  throw new Error('Missing RESEND_API_KEY');
+}
 
-const isDevelopment = process.env.NODE_ENV === 'development';
+const resend = new Resend(process.env.RESEND_API_KEY);
 
 export async function POST(request: Request) {
   try {
-    const { fullName, email_id, message } = await request.json();
+    // Log untuk debugging
+    console.log('API route called');
+
+    const body = await request.json();
+    console.log('Request body:', body);
+
+    const { fullName, email_id, message } = body;
 
     if (!fullName || !email_id || !message) {
-      return NextResponse.json({ 
-        error: 'Semua field harus diisi' 
-      }, { status: 400 });
+      return new NextResponse(
+        JSON.stringify({ error: 'All fields are required' }),
+        {
+          status: 400,
+          headers: { 'Content-Type': 'application/json' },
+        }
+      );
     }
 
-    if (isDevelopment) {
-      // Di development, log saja tanpa kirim email
-      console.log('Development mode - Email would be sent:', {
-        to: 'ramdevganteng77@gmail.com',
-        from: 'onboarding@resend.dev',
-        subject: `Pesan Baru dari ${fullName}`,
-        reply_to: email_id,
-        message
-      });
-
-      return NextResponse.json({
-        success: true,
-        message: 'Email berhasil dikirim (development mode)',
-      });
-    }
-
-    // Di production, kirim email sungguhan
-    const data = await resend.emails.send({
-      from: 'Portfolio Website <onboarding@resend.dev>',
+    const sendResult = await resend.emails.send({
+      from: 'Acme <onboarding@resend.dev>',
       to: ['ramdevganteng77@gmail.com'],
+      subject: `New message from ${fullName}`,
       reply_to: email_id,
-      subject: `Pesan Baru dari ${fullName}`,
       html: `
-        <div style="font-family: Arial, sans-serif; padding: 20px;">
-          <h2>Pesan Baru dari Website</h2>
-          <p><strong>Nama:</strong> ${fullName}</p>
+        <div>
+          <h2>New Contact Form Submission</h2>
+          <p><strong>Name:</strong> ${fullName}</p>
           <p><strong>Email:</strong> ${email_id}</p>
-          <p><strong>Pesan:</strong></p>
-          <div style="background-color: #f5f5f5; padding: 15px; border-radius: 5px;">
-            ${message.replace(/\n/g, '<br>')}
-          </div>
+          <p><strong>Message:</strong></p>
+          <p>${message}</p>
         </div>
       `,
     });
 
-    return NextResponse.json({ 
-      success: true,
-      message: 'Email berhasil dikirim',
-      id: data.id 
-    });
+    console.log('Email sent:', sendResult);
+
+    return new NextResponse(
+      JSON.stringify({ 
+        success: true, 
+        message: 'Email sent successfully',
+        data: sendResult 
+      }),
+      {
+        status: 200,
+        headers: { 'Content-Type': 'application/json' },
+      }
+    );
 
   } catch (error) {
-    console.error('Error sending email:', error);
-    return NextResponse.json({ 
-      success: false,
-      error: 'Gagal mengirim email',
-      details: error instanceof Error ? error.message : 'Unknown error'
-    }, { status: 500 });
+    console.error('API route error:', error);
+    
+    return new NextResponse(
+      JSON.stringify({ 
+        success: false, 
+        error: error instanceof Error ? error.message : 'Failed to send email' 
+      }),
+      {
+        status: 500,
+        headers: { 'Content-Type': 'application/json' },
+      }
+    );
   }
 } 

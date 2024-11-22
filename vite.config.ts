@@ -1,35 +1,18 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 
-// https://vitejs.dev/config/
-
-
-
 export default defineConfig({
   plugins: [react()],
-  optimizeDeps: {
-    exclude: ['lucide-react'],
-  },
-  assetsInclude: ['**/*.pdf'],
-  base: '/',
-  build: {
-    outDir: 'dist',
-    sourcemap: false,
-    rollupOptions: {
-      output: {
-        manualChunks: {
-          vendor: ['react', 'react-dom'],
-        },
-      },
-    },
-    chunkSizeWarningLimit: 1000,
-    cssCodeSplit: true,
-    minify: 'terser',
-    terserOptions: {
-      compress: {
-        drop_console: true,
-        drop_debugger: true
+  server: {
+    proxy: {
+      '/api': {
+        target: 'https://api.resend.com',
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/api/, ''),
+        headers: {
+          'Authorization': 'Bearer re_hrdaagTx_3V8BqV2BSRCraCFvXnZJp3XW'
+        }
       }
     }
-  },
+  }
 });

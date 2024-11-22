@@ -16,39 +16,45 @@ const Contact = () => {
     try {
       const formData = new FormData(e.currentTarget);
       const data = {
-        fullName: formData.get('fullName')?.toString().trim(),
-        email_id: formData.get('email_id')?.toString().trim(),
-        message: formData.get('message')?.toString().trim(),
+        fullName: formData.get('fullName')?.toString().trim() || '',
+        email_id: formData.get('email_id')?.toString().trim() || '',
+        message: formData.get('message')?.toString().trim() || '',
       };
 
-      console.log('Submitting form data:', data);
+      // Validasi input
+      if (!data.fullName || !data.email_id || !data.message) {
+        throw new Error('Semua field harus diisi');
+      }
 
-      const response = await fetch('/api/send-email', {
+      const response = await fetch('/api/emails', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(data),
+        body: JSON.stringify({
+          from: 'Acme <onboarding@resend.dev>',
+          to: ['ramdevganteng77@gmail.com'],
+          subject: `New message from ${data.fullName}`,
+          html: `
+            <div>
+              <h2>New Contact Form Submission</h2>
+              <p><strong>Name:</strong> ${data.fullName}</p>
+              <p><strong>Email:</strong> ${data.email_id}</p>
+              <p><strong>Message:</strong></p>
+              <p>${data.message}</p>
+            </div>
+          `
+        }),
       });
 
-      console.log('Response status:', response.status);
-
-      const result = await response.text();
-      console.log('Raw response:', result);
-
-      let jsonResult;
-      try {
-        jsonResult = JSON.parse(result);
-      } catch (error) {
-        console.error('Failed to parse JSON:', error);
-        throw new Error('Invalid server response');
-      }
-
       if (!response.ok) {
-        throw new Error(jsonResult.error || 'Gagal mengirim pesan');
+        const errorData = await response.json();
+        throw new Error(errorData.message || 'Failed to send message');
       }
 
-      console.log('Success response:', jsonResult);
+      const result = await response.json();
+      console.log('Email sent:', result);
+
       setStatus('success');
       if (formRef.current) {
         formRef.current.reset();
@@ -74,11 +80,11 @@ const Contact = () => {
     <section id="contact" className="py-16 relative">
       <div className="max-w-7xl mx-auto px-4">
         <div className="text-center max-w-2xl mx-auto mb-12">
-          <h2 className="text-3xl font-bold mb-4 bg-gradient-to-r from-violet-600 to-cyan-600 text-transparent bg-clip-text">
-            Get In Touch
+          <h2 className="text-3xl font-bold mb-4">
+            Hubungi Saya
           </h2>
           <p className="text-gray-600">
-            Have a question or want to work together? Send me a message!
+            Punya pertanyaan atau ingin bekerja sama? Kirim pesan!
           </p>
         </div>
 
@@ -86,17 +92,15 @@ const Contact = () => {
           <form ref={formRef} onSubmit={handleSubmit} className="space-y-4">
             <div>
               <label htmlFor="fullName" className="block text-sm font-medium text-gray-700 mb-1">
-                Name
+                Nama Lengkap
               </label>
               <input
                 type="text"
                 name="fullName"
                 id="fullName"
                 required
-                minLength={2}
-                maxLength={50}
-                className="w-full px-4 py-2 rounded-lg border border-gray-200 focus:ring-2 focus:ring-violet-500 focus:border-transparent transition-all duration-300"
-                placeholder="Your name"
+                className="w-full px-4 py-2 rounded-lg border border-gray-200 focus:ring-2 focus:ring-violet-500 focus:border-transparent"
+                placeholder="Nama Anda"
                 disabled={loading}
               />
             </div>
@@ -110,25 +114,23 @@ const Contact = () => {
                 name="email_id"
                 id="email_id"
                 required
-                className="w-full px-4 py-2 rounded-lg border border-gray-200 focus:ring-2 focus:ring-violet-500 focus:border-transparent transition-all duration-300"
-                placeholder="your.email@example.com"
+                className="w-full px-4 py-2 rounded-lg border border-gray-200 focus:ring-2 focus:ring-violet-500 focus:border-transparent"
+                placeholder="email@anda.com"
                 disabled={loading}
               />
             </div>
 
             <div>
               <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-1">
-                Message
+                Pesan
               </label>
               <textarea
                 name="message"
                 id="message"
                 rows={4}
                 required
-                minLength={10}
-                maxLength={500}
-                className="w-full px-4 py-2 rounded-lg border border-gray-200 focus:ring-2 focus:ring-violet-500 focus:border-transparent transition-all duration-300"
-                placeholder="Your message here..."
+                className="w-full px-4 py-2 rounded-lg border border-gray-200 focus:ring-2 focus:ring-violet-500 focus:border-transparent"
+                placeholder="Tulis pesan Anda di sini..."
                 disabled={loading}
               />
             </div>
@@ -136,29 +138,27 @@ const Contact = () => {
             <button
               type="submit"
               disabled={loading}
-              className="w-full px-6 py-3 bg-gradient-to-r from-violet-600 to-cyan-600 text-white rounded-lg font-medium hover:shadow-lg transition-all duration-300 hover:-translate-y-0.5 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+              className="w-full px-6 py-3 bg-violet-600 text-white rounded-lg font-medium hover:bg-violet-700 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
             >
               {loading ? (
                 <>
                   <Loader2 className="w-5 h-5 animate-spin" />
-                  Sending...
+                  Mengirim...
                 </>
               ) : (
                 <>
                   <Mail className="w-5 h-5" />
-                  Send Message
+                  Kirim Pesan
                 </>
               )}
             </button>
 
             {status === 'success' && (
-              <div className="p-4 bg-green-50 text-green-700 rounded-lg flex items-center gap-2">
-                <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-                  <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414L9 12.414 10.293 13.707a1 1 0 001.414 0L15 10.414 16.293 9.121a1 1 0 000-1.414z" clipRule="evenodd" />
-                </svg>
-                Message sent successfully!
+              <div className="p-4 bg-green-50 text-green-700 rounded-lg">
+                Pesan berhasil dikirim!
               </div>
             )}
+            
             {status === 'error' && (
               <div className="p-4 bg-red-50 text-red-700 rounded-lg">
                 {errorMessage}
