@@ -1,36 +1,21 @@
 import { NextResponse } from 'next/server';
 import { Resend } from 'resend';
 
-// Validasi API key
-if (!process.env.RESEND_API_KEY) {
-  throw new Error('Missing RESEND_API_KEY');
-}
-
 const resend = new Resend(process.env.RESEND_API_KEY);
 
-// Tambahkan config untuk mengizinkan method POST
-export const config = {
-  api: {
-    bodyParser: true,
-  },
-};
-
-// Definisikan method yang diizinkan
-export async function POST(req: Request) {
-  if (req.method !== 'POST') {
-    return NextResponse.json(
-      { error: 'Method not allowed' },
-      { status: 405 }
-    );
-  }
-
+// Hanya export fungsi POST
+export async function POST(request: Request) {
   try {
-    const { fullName, email_id, message } = await req.json();
+    const body = await request.json();
+    const { fullName, email_id, message } = body;
 
     if (!fullName || !email_id || !message) {
-      return NextResponse.json(
-        { error: 'All fields are required' },
-        { status: 400 }
+      return new NextResponse(
+        JSON.stringify({ error: 'All fields are required' }), 
+        { 
+          status: 400,
+          headers: { 'Content-Type': 'application/json' }
+        }
       );
     }
 
@@ -49,28 +34,23 @@ export async function POST(req: Request) {
       `
     });
 
-    return NextResponse.json(
-      { success: true, data },
+    return new NextResponse(
+      JSON.stringify({ success: true, data }), 
       { 
         status: 200,
-        headers: {
-          'Content-Type': 'application/json',
-        }
+        headers: { 'Content-Type': 'application/json' }
       }
     );
 
   } catch (error) {
     console.error('Email error:', error);
-    return NextResponse.json(
-      { 
-        success: false,
+    return new NextResponse(
+      JSON.stringify({ 
         error: error instanceof Error ? error.message : 'Failed to send email' 
-      },
+      }), 
       { 
         status: 500,
-        headers: {
-          'Content-Type': 'application/json',
-        }
+        headers: { 'Content-Type': 'application/json' }
       }
     );
   }
