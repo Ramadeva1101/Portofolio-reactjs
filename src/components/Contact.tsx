@@ -21,39 +21,19 @@ const Contact = () => {
         message: formData.get('message')?.toString().trim() || '',
       };
 
-      // Validasi input
-      if (!data.fullName || !data.email_id || !data.message) {
-        throw new Error('Semua field harus diisi');
-      }
-
-      const response = await fetch('/api/emails', {
+      const response = await fetch('/api/send-email', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({
-          from: 'Acme <onboarding@resend.dev>',
-          to: ['ramdevganteng77@gmail.com'],
-          subject: `New message from ${data.fullName}`,
-          html: `
-            <div>
-              <h2>New Contact Form Submission</h2>
-              <p><strong>Name:</strong> ${data.fullName}</p>
-              <p><strong>Email:</strong> ${data.email_id}</p>
-              <p><strong>Message:</strong></p>
-              <p>${data.message}</p>
-            </div>
-          `
-        }),
+        body: JSON.stringify(data),
       });
 
-      if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.message || 'Failed to send message');
-      }
-
       const result = await response.json();
-      console.log('Email sent:', result);
+
+      if (!response.ok) {
+        throw new Error(result.error || 'Failed to send message');
+      }
 
       setStatus('success');
       if (formRef.current) {
@@ -69,10 +49,6 @@ const Contact = () => {
       );
     } finally {
       setLoading(false);
-      setTimeout(() => {
-        setStatus('idle');
-        setErrorMessage('');
-      }, 5000);
     }
   };
 
