@@ -234,7 +234,7 @@ const Projects = () => {
             <div className="text-gray-600">Projects Completed</div>
           </div>
           <div className="bg-white/80 backdrop-blur-sm rounded-xl p-6 shadow-lg border border-gray-100">
-            <div className="text-3xl font-bold text-cyan-600 mb-2">50+</div>
+            <div className="text-3xl font-bold text-cyan-600 mb-2">100+</div>
             <div className="text-gray-600">Commits Made</div>
           </div>
           <div className="bg-white/80 backdrop-blur-sm rounded-xl p-6 shadow-lg border border-gray-100">
