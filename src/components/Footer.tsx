@@ -62,10 +62,21 @@ const Footer = () => {
           <div className="space-y-4">
             <h3 className="text-xl font-bold dark:text-white">Quick Links</h3>
             <div className="grid grid-cols-2 gap-2">
-              <a href="#home" className="text-gray-600 dark:text-gray-300 hover:text-indigo-600 transition-colors">Home</a>
-              <a href="#skills" className="text-gray-600 dark:text-gray-300 hover:text-indigo-600 transition-colors">Skills</a>
-              <a href="#projects" className="text-gray-600 dark:text-gray-300 hover:text-indigo-600 transition-colors">Projects</a>
-              <a href="#contact" className="text-gray-600 dark:text-gray-300 hover:text-indigo-600 transition-colors">Contact</a>
+              <a href="#home" className="text-gray-600 dark:text-gray-300 hover:text-indigo-600 transition-colors">
+                Home
+              </a>
+              <a href="#skills" className="text-gray-600 dark:text-gray-300 hover:text-indigo-600 transition-colors">
+                Skills
+              </a>
+              <a href="#experience" className="text-gray-600 dark:text-gray-300 hover:text-indigo-600 transition-colors">
+                Experience
+              </a>
+              <a href="#projects" className="text-gray-600 dark:text-gray-300 hover:text-indigo-600 transition-colors">
+                Projects
+              </a>
+              <a href="#contact" className="text-gray-600 dark:text-gray-300 hover:text-indigo-600 transition-colors">
+                Contact
+              </a>
             </div>
           </div>
           

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { motion } from 'framer-motion';
 import { Github, Mail, Download, ExternalLink, Award, Users, Briefcase, Rocket, Star, Instagram, Phone, FileText } from 'lucide-react';
 
 const Hero = () => {
@@ -59,67 +60,106 @@ const Hero = () => {
       <div className="w-full max-w-7xl mx-auto px-4 py-8 grid lg:grid-cols-[1fr,2fr] gap-8 items-start">
         {/* Left Column */}
         <div>
-          {/* Profile Card */}
-          <div className="group bg-white/90 backdrop-blur-sm rounded-2xl p-8 shadow-xl border border-gray-100 hover:shadow-2xl transition-all duration-300 hover:-translate-y-1 mb-6">
-            <div className="aspect-square rounded-2xl bg-gradient-to-r from-violet-200 via-pink-200 to-cyan-200 overflow-hidden mb-6 transition-transform duration-300 shadow-lg">
-            <img 
+          <motion.div
+            animate={{ 
+              y: [-5, 5, -5] 
+            }}
+            transition={{ 
+              repeat: Infinity, 
+              duration: 3,
+              ease: "easeInOut"
+            }}
+            className="bg-white rounded-[32px] p-8 shadow-xl border border-gray-100 relative overflow-hidden mb-6"
+          >
+            {/* Decorative elements */}
+            <div className="absolute top-6 left-6 w-8 h-8 rounded-full bg-violet-100/50" />
+            <div className="absolute bottom-6 right-6 w-8 h-8 rounded-full bg-violet-100/50" />
+            <div className="absolute -top-20 -right-20 w-40 h-40 rounded-full bg-gradient-to-br from-violet-100/20 to-transparent" />
+
+            {/* Profile Image - Ukuran diperbesar */}
+            <div className="relative w-36 h-36 mx-auto mb-6">
+              <div className="absolute inset-0 rounded-full border-2 border-violet-400 animate-pulse" />
+              <img 
                 src="/profile.png" 
                 alt="Profile" 
-                className="w-full h-full object-cover"
+                className="w-full h-full rounded-full object-cover border-4 border-white shadow-lg"
               />
             </div>
-            <div className="space-y-4">
+
+            {/* Content */}
+            <div className="text-center space-y-4">
               <div>
-                <h1 className="text-2xl font-bold mb-2 bg-gradient-to-r from-violet-600 to-cyan-600 text-transparent bg-clip-text">I Gede Ramadeva</h1>
-                <p className="text-gray-600">Software Engineering</p>
-              </div>
-              
-              <div className="flex flex-wrap gap-2">
-                <span className="bg-violet-100 text-violet-800 px-3 py-1 rounded-full text-sm hover:bg-violet-200 transition-colors cursor-default">
-                  Available for hire
-                </span>
-                <span className="bg-emerald-100 text-emerald-800 px-3 py-1 rounded-full text-sm hover:bg-emerald-200 transition-colors cursor-default">
-                  Remote friendly
-                </span>
+                <h1 className="text-2xl font-bold text-gray-800 mb-1">I Gede Ramadeva</h1>
+                <p className="text-violet-600 font-medium">Software Engineering</p>
               </div>
 
-              <div className="grid grid-cols-2 gap-3">
+              <p className="text-gray-600 text-sm px-4">
+                A passionate <span className="text-violet-600 font-medium">Tech Enthusiast</span> specializing in{" "}
+                <span className="text-violet-600 font-medium">Web Development</span> with modern technologies
+              </p>
+
+              {/* Social Icons */}
+              <div className="flex justify-center gap-5 pt-2">
                 <a 
-                  href="/cvbaru.pdf"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center justify-center gap-2 px-4 py-2.5 bg-gradient-to-r from-violet-600 to-cyan-600 text-white rounded-xl font-medium text-sm hover:shadow-lg transition-all duration-300 hover:-translate-y-0.5 group relative overflow-hidden"
+                  href="mailto:ramadeva1101@gmail.com" 
+                  className="text-gray-400 hover:text-violet-600 transition-colors p-2 hover:bg-violet-50 rounded-xl"
                 >
-                  <span className="absolute inset-0 bg-gradient-to-r from-violet-700 to-cyan-700 translate-y-full group-hover:translate-y-0 transition-transform duration-300"></span>
-                  <FileText className="w-4 h-4 relative z-10" />
-                  <span className="relative z-10">See CV</span>
+                  <Mail className="w-5 h-5" />
                 </a>
-                
-                <button className="relative overflow-hidden group bg-white border border-gray-200 text-gray-700 px-4 py-2.5 rounded-xl font-medium text-sm hover:border-violet-200 hover:shadow-lg transition-all duration-300">
-                  <span className="absolute inset-0 bg-gradient-to-r from-violet-50 to-cyan-50 translate-y-full group-hover:translate-y-0 transition-transform duration-300"></span>
-                  <span className="relative flex items-center justify-center gap-2">
-                    <ExternalLink className="w-4 h-4" /> Portfolio
-                  </span>
+                <a 
+                  href="https://github.com/Ramadeva1101" 
+                  className="text-gray-400 hover:text-violet-600 transition-colors p-2 hover:bg-violet-50 rounded-xl"
+                >
+                  <Github className="w-5 h-5" />
+                </a>
+                <a 
+                  href="https://www.instagram.com/rammdv_" 
+                  className="text-gray-400 hover:text-violet-600 transition-colors p-2 hover:bg-violet-50 rounded-xl"
+                >
+                  <Instagram className="w-5 h-5" />
+                </a>
+                <a 
+                  href="https://wa.me/6282146281427" 
+                  className="text-gray-400 hover:text-violet-600 transition-colors p-2 hover:bg-violet-50 rounded-xl"
+                >
+                  <Phone className="w-5 h-5" />
+                </a>
+              </div>
+
+              {/* Buttons */}
+              <div className="grid grid-cols-2 gap-3 pt-2">
+                <a 
+                  href="/cv.pdf"
+                  target="_blank"
+                  rel="noopener noreferrer" 
+                  className="flex items-center justify-center gap-2 bg-violet-600 text-white py-2.5 px-4 rounded-xl hover:bg-violet-700 transition-colors text-sm font-medium"
+                >
+                  <FileText className="w-4 h-4" />
+                  See CV
+                </a>
+                <button className="flex items-center justify-center gap-2 bg-violet-50 text-violet-600 py-2.5 px-4 rounded-xl hover:bg-violet-100 transition-colors text-sm font-medium">
+                  <ExternalLink className="w-4 h-4" />
+                  Portfolio
                 </button>
               </div>
             </div>
-          </div>
+          </motion.div>
 
-          {/* Horizontal Connect Card */}
-          <div className="bg-white/90 backdrop-blur-sm rounded-2xl p-5 shadow-xl border border-gray-100 hover:shadow-2xl transition-all duration-300">
-            <h3 className="font-semibold mb-4 text-gray-700">Connect with me</h3>
-            <div className="flex justify-center gap-4">
-              <a href="mailto:ramadeva1101@gmail.com" className="group bg-gray-50 p-3 rounded-xl hover:bg-gradient-to-r from-violet-50 to-cyan-50 transition-all duration-300 hover:shadow-md flex items-center justify-center hover:-translate-y-1">
-                <Mail className="w-5 h-5 group-hover:text-violet-600 transition-colors" />
+          {/* Connect Card */}
+          <div className="bg-white/95 rounded-3xl p-6 shadow-lg border border-gray-100">
+            <h3 className="font-medium mb-4 text-gray-700">Connect with me</h3>
+            <div className="flex justify-center gap-6">
+              <a href="mailto:ramadeva1101@gmail.com" className="text-gray-600 hover:text-violet-600 transition-colors">
+                <Mail className="w-5 h-5" />
               </a>
-              <a href="https://github.com/Ramadeva1101" className="group bg-gray-50 p-3 rounded-xl hover:bg-gradient-to-r from-violet-50 to-cyan-50 transition-all duration-300 hover:shadow-md flex items-center justify-center hover:-translate-y-1">
-                <Github className="w-5 h-5 group-hover:text-violet-600 transition-colors" />
+              <a href="https://github.com/Ramadeva1101" className="text-gray-600 hover:text-violet-600 transition-colors">
+                <Github className="w-5 h-5" />
               </a>
-              <a href="https://www.instagram.com/rammdv_" className="group bg-gray-50 p-3 rounded-xl hover:bg-gradient-to-r from-violet-50 to-cyan-50 transition-all duration-300 hover:shadow-md flex items-center justify-center hover:-translate-y-1">
-                <Instagram className="w-5 h-5 group-hover:text-violet-600 transition-colors" />
+              <a href="https://www.instagram.com/rammdv_" className="text-gray-600 hover:text-violet-600 transition-colors">
+                <Instagram className="w-5 h-5" />
               </a>
-              <a href="https://wa.me/6282146281427" className="group bg-gray-50 p-3 rounded-xl hover:bg-gradient-to-r from-violet-50 to-cyan-50 transition-all duration-300 hover:shadow-md flex items-center justify-center hover:-translate-y-1">
-                <Phone className="w-5 h-5 group-hover:text-violet-600 transition-colors" />
+              <a href="https://wa.me/6282146281427" className="text-gray-600 hover:text-violet-600 transition-colors">
+                <Phone className="w-5 h-5" />
               </a>
             </div>
           </div>

@@ -135,25 +135,25 @@ const Experience = () => {
           </div>
 
           {/* Work Experience Card */}
-          <div className="bg-white/80 backdrop-blur-sm rounded-xl shadow-lg p-6">
-            <h3 className="text-xl font-bold text-indigo-600 mb-6">
+          <div className="bg-white/80 backdrop-blur-sm rounded-xl shadow-lg p-8">
+            <h3 className="text-xl font-bold text-indigo-600 mb-8">
               Pengalaman Kerja
             </h3>
             <div className="relative h-[400px] overflow-hidden">
               <div className="absolute w-full animate-infiniteScroll">
-                <div className="space-y-6">
+                <div className="space-y-8">
                   {workExperiences.map((work, index) => (
                     <motion.div
                       key={`work-1-${index}`}
-                      className="p-4 bg-white/50 rounded-lg border border-indigo-100"
+                      className="p-6 bg-white/50 rounded-lg border border-indigo-100 hover:shadow-md transition-shadow"
                     >
-                      <h4 className="font-bold text-gray-800 mb-1">{work.company}</h4>
-                      <p className="text-sm text-indigo-600 mb-2">{work.period}</p>
-                      <p className="text-gray-700 font-medium mb-3">{work.role}</p>
-                      <ul className="space-y-2">
+                      <h4 className="font-bold text-gray-800 mb-2">{work.company}</h4>
+                      <p className="text-sm text-indigo-600 mb-3">{work.period}</p>
+                      <p className="text-gray-700 font-medium mb-4">{work.role}</p>
+                      <ul className="space-y-3">
                         {work.tasks.map((task, idx) => (
-                          <li key={idx} className="flex items-center text-gray-600 text-sm">
-                            <span className="w-1.5 h-1.5 bg-indigo-400 rounded-full mr-2"></span>
+                          <li key={idx} className="flex items-center text-gray-600 text-sm gap-3">
+                            <span className="w-2 h-2 bg-indigo-400 rounded-full"></span>
                             {task}
                           </li>
                         ))}
@@ -161,19 +161,19 @@ const Experience = () => {
                     </motion.div>
                   ))}
                 </div>
-                <div className="space-y-6">
+                <div className="space-y-8">
                   {workExperiences.map((work, index) => (
                     <motion.div
                       key={`work-2-${index}`}
-                      className="p-4 bg-white/50 rounded-lg border border-indigo-100"
+                      className="p-6 bg-white/50 rounded-lg border border-indigo-100 hover:shadow-md transition-shadow"
                     >
-                      <h4 className="font-bold text-gray-800 mb-1">{work.company}</h4>
-                      <p className="text-sm text-indigo-600 mb-2">{work.period}</p>
-                      <p className="text-gray-700 font-medium mb-3">{work.role}</p>
-                      <ul className="space-y-2">
+                      <h4 className="font-bold text-gray-800 mb-2">{work.company}</h4>
+                      <p className="text-sm text-indigo-600 mb-3">{work.period}</p>
+                      <p className="text-gray-700 font-medium mb-4">{work.role}</p>
+                      <ul className="space-y-3">
                         {work.tasks.map((task, idx) => (
-                          <li key={idx} className="flex items-center text-gray-600 text-sm">
-                            <span className="w-1.5 h-1.5 bg-indigo-400 rounded-full mr-2"></span>
+                          <li key={idx} className="flex items-center text-gray-600 text-sm gap-3">
+                            <span className="w-2 h-2 bg-indigo-400 rounded-full"></span>
                             {task}
                           </li>
                         ))}
