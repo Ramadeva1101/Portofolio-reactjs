@@ -6,6 +6,7 @@ import { Navigation, Pagination } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
+import { motion } from 'framer-motion';
 
 interface Project {
   title: string;
@@ -228,7 +229,7 @@ const Projects = () => {
         </div>
 
         {/* Bottom Stats */}
-        <div className="grid grid-cols-3 gap-6 mt-16 max-w-3xl mx-auto text-center">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-16 max-w-3xl mx-auto text-center">
           <div className="bg-white/80 backdrop-blur-sm rounded-xl p-6 shadow-lg border border-gray-100">
             <div className="text-3xl font-bold text-indigo-600 mb-2">10+</div>
             <div className="text-gray-600">Projects Completed</div>
